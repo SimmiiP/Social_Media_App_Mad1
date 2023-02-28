@@ -5,7 +5,7 @@ import com.github.ajalt.timberkt.Timber
 import ie.setu.social_media_app_mad1.models.UserModel
 import timber.log.Timber.i
 
-class mainApp : Application() {
+class MainApp : Application() {
 
     val users = ArrayList<UserModel>()
 
