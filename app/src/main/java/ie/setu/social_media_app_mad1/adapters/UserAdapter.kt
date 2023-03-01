@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import ie.setu.social_media_app_mad1.databinding.CardUserBinding
 import ie.setu.social_media_app_mad1.models.UserModel
 
-class UserAdapter constructor(private var users: List<UserModel>) :
+interface UserListener {
+    fun onUserClick(user: UserModel)
+}
+class UserAdapter constructor(private var users: List<UserModel>,
+private val listener: UserListener) :
     RecyclerView.Adapter<UserAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {

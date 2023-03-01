@@ -2,12 +2,13 @@ package ie.setu.social_media_app_mad1.main
 
 import android.app.Application
 import com.github.ajalt.timberkt.Timber
+import ie.setu.social_media_app_mad1.models.UserMemStore
 import ie.setu.social_media_app_mad1.models.UserModel
 import timber.log.Timber.i
 
 class MainApp : Application() {
 
-    val users = ArrayList<UserModel>()
+    val users = UserMemStore()
 
     override fun onCreate() {
         super.onCreate()

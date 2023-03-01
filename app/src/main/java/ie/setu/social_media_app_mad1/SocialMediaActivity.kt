@@ -27,16 +27,14 @@ class SocialMediaActivity : AppCompatActivity() {
 
         app = application as MainApp
         i("Social Media Activity started...")
+
+
         binding.btnAdd.setOnClickListener() {
             user.username = binding.accountUsername.text.toString()
             user.password = binding.accountPassword.text.toString()
             user.caption = binding.accountCaption.text.toString()
             if (user.username.isNotEmpty() && user.password.isNotEmpty()) {
-                app.users.add(user.copy())
-                i("add Button Pressed: $user")
-                for (i in app.users.indices)
-                { i("User[$i]:${this.app.users[i]}")
-                }
+                app.users.create(user.copy())
                 setResult(RESULT_OK)
                 finish()
             }
