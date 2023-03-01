@@ -61,6 +61,7 @@ class SocialMediaListActivity : AppCompatActivity(), UserListener {
         }
     override fun onUserClick(user: UserModel) {
         val launcherIntent = Intent(this, SocialMediaActivity::class.java)
+        launcherIntent.putExtra("user_edit", user)
         getClickResult.launch(launcherIntent)
     }
 
