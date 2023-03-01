@@ -9,11 +9,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.social_media_app_mad1.adapters.UserAdapter
+import ie.setu.social_media_app_mad1.adapters.UserListener
 import ie.setu.social_media_app_mad1.databinding.ActivitySocialMediaListBinding
 import ie.setu.social_media_app_mad1.main.MainApp
+import ie.setu.social_media_app_mad1.models.UserModel
 
 
-class SocialMediaListActivity : AppCompatActivity() {
+class SocialMediaListActivity : AppCompatActivity(), UserListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivitySocialMediaListBinding
@@ -30,7 +32,7 @@ class SocialMediaListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = UserAdapter(app.users)
+        binding.recyclerView.adapter = UserAdapter(app.users.findAll(),this)
 
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,7 +56,22 @@ class SocialMediaListActivity : AppCompatActivity() {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.users.size)
+                notifyItemRangeChanged(0,app.users.findAll().size)
             }
         }
+    override fun onUserClick(user: UserModel) {
+        val launcherIntent = Intent(this, SocialMediaActivity::class.java)
+        getClickResult.launch(launcherIntent)
+    }
+
+    private val getClickResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                (binding.recyclerView.adapter)?.
+                notifyItemRangeChanged(0,app.users.findAll().size)
+            }
+        }
+
 }
