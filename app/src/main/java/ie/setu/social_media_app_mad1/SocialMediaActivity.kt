@@ -17,34 +17,48 @@ class SocialMediaActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySocialmediaBinding
     var user = UserModel()
     lateinit var app: MainApp
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var edit = false
         binding = ActivitySocialmediaBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
-
-
         app = application as MainApp
-        i("Social Media Activity started...")
 
+
+        if (intent.hasExtra("user_edit")) {
+            edit = true
+            user = intent.extras?.getParcelable("user_edit")!!
+            binding.accountUsername.setText(user.username)
+            binding.accountPassword.setText(user.password)
+            binding.accountCaption.setText(user.caption)
+            binding.btnAdd.setText(R.string.update_user)
+        }
 
         binding.btnAdd.setOnClickListener() {
             user.username = binding.accountUsername.text.toString()
             user.password = binding.accountPassword.text.toString()
             user.caption = binding.accountCaption.text.toString()
-            if (user.username.isNotEmpty() && user.password.isNotEmpty()) {
-                app.users.create(user.copy())
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
-                Snackbar.make(it,"Please input a username and password", Snackbar.LENGTH_LONG)
+            if (user.username.isEmpty() && user.password.isEmpty())
+            {
+                Snackbar.make(it,R.string.fill_all_fields,Snackbar.LENGTH_LONG)
                     .show()
+            } else {
+                if(edit){
+                    app.users.update(user.copy())
+                } else {
+                    app.users.create(user.copy())
+                }
             }
-        }
+            setResult(RESULT_OK)
+            finish()
+       }
 
-
+        /*binding.chooseImage.setOnClickListener {
+            i("Choose an Image")
+        }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

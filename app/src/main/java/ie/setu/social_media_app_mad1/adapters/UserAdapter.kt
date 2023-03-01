@@ -22,7 +22,7 @@ private val listener: UserListener) :
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val user = users[holder.adapterPosition]
-        holder.bind(user)
+        holder.bind(user, listener)
     }
 
     override fun getItemCount(): Int = users.size
@@ -30,9 +30,10 @@ private val listener: UserListener) :
     class MainHolder(private val binding: CardUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(user: UserModel) {
+        fun bind(user: UserModel, listener: UserListener) {
             binding.accountUsername.text = user.username
             binding.accountCaption.text = user.caption
+            binding.root.setOnClickListener{listener.onUserClick(user)}
         }
     }
 

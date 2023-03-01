@@ -7,5 +7,7 @@
     <string name="hint_userFullName">Full Name</string>
     <string name="menu_addUser">Add</string>
     <string name="menu_cancelUser">Cancel</string>
-
+    <string name="fill_all_fields"> Please enter a username and password </string>
+    <string name="update_user"> Save Changes </string>
+    <string name="button_addImage"> Add a Profile Picture </string>
 </resources>
