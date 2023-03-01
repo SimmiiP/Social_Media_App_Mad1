@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">Social_Media_App_Mad1</string>
+    <string name="app_name">Social Media Tracker</string>
     <string name="button_addUser">Add New User</string>
-    <string name="hint_userTitle">Username</string>
-    <string name="hint_userPassword">Password</string>
+    <string name="hint_userTitle">Username *</string>
+    <string name="hint_userPassword">Password *</string>
+    <string name="hint_userCaption">Caption</string>
     <string name="hint_userFullName">Full Name</string>
     <string name="menu_addUser">Add</string>
     <string name="menu_cancelUser">Cancel</string>

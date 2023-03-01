@@ -18,14 +18,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:textSize="30sp"
-            tools:text="A Title" />
+            tools:text="Your Username" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/accountCaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/accountUsername"
-            tools:text="A Description" />
+            tools:text="Change your caption!" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
