@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.NumberPicker
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
@@ -38,12 +39,17 @@ class SocialMediaActivity : AppCompatActivity() {
 
         i("Social Media Activity started...")
 
+
+
+
         if (intent.hasExtra("user_edit")) {
             edit = true
             user = intent.extras?.getParcelable("user_edit")!!
+            binding.mediaName.setText(user.socialmedia)
             binding.accountUsername.setText(user.username)
             binding.accountPassword.setText(user.password)
             binding.accountCaption.setText(user.caption)
+            binding.numberPicker.value = user.followers
             binding.btnAdd.setText(R.string.update_user)
             Picasso.get()
                 .load(user.profilepic)
@@ -52,10 +58,12 @@ class SocialMediaActivity : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener() {
+            user.socialmedia = binding.mediaName.text.toString()
             user.username = binding.accountUsername.text.toString()
             user.password = binding.accountPassword.text.toString()
             user.caption = binding.accountCaption.text.toString()
-            if (user.username.isEmpty() && user.password.isEmpty()) {
+                user.followers = binding.numberPicker.value.toInt()
+            if (user.username.isEmpty() && user.password.isEmpty() && user.socialmedia.isEmpty()) {
                 Snackbar.make(it, R.string.fill_all_fields, Snackbar.LENGTH_LONG)
                     .show()
             } else {
@@ -74,6 +82,12 @@ class SocialMediaActivity : AppCompatActivity() {
             showImagePicker(imageIntentLauncher)
         }
 
+
+        val numberPicker = findViewById<NumberPicker>(R.id.numberPicker)
+        numberPicker.minValue = 0
+        numberPicker.maxValue = 10000
+        numberPicker.wrapSelectorWheel = false
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -89,6 +103,7 @@ class SocialMediaActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     private fun registerImagePickerCallback() {
         imageIntentLauncher =

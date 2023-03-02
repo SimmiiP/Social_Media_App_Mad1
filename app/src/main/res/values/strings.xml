@@ -4,10 +4,11 @@
     <string name="hint_userTitle">Username *</string>
     <string name="hint_userPassword">Password *</string>
     <string name="hint_userCaption">Caption</string>
-    <string name="hint_userFullName">Full Name</string>
+    <string name="hint_userFollowers">Followers</string>
+    <string name="hint_mediaName">Social Media *</string>
     <string name="menu_addUser">Add</string>
     <string name="menu_cancelUser">Cancel</string>
-    <string name="fill_all_fields"> Please enter a username and password </string>
+    <string name="fill_all_fields"> Please enter a username, password and the name of the app you would like to track </string>
     <string name="update_user"> Save Changes </string>
     <string name="button_addImage"> Add a Profile Picture </string>
     <string name="select_profile_image"> select your profile picture </string>
