@@ -10,4 +10,5 @@
     <string name="fill_all_fields"> Please enter a username and password </string>
     <string name="update_user"> Save Changes </string>
     <string name="button_addImage"> Add a Profile Picture </string>
+    <string name="select_profile_image"> select your profile picture </string>
 </resources>
