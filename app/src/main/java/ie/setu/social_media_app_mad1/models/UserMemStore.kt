@@ -22,9 +22,12 @@ class UserMemStore : UserStore {
     override fun update(user: UserModel){
         var foundUser: UserModel? = users.find{ p -> p.id == user.id }
         if (foundUser !=null){
+            foundUser.socialmedia = user.socialmedia
             foundUser.username = user.username
             foundUser.password = user.password
             foundUser.caption = user.caption
+            foundUser.profilepic = user.profilepic
+            foundUser.followers = user.followers
             logAll()
         }
     }

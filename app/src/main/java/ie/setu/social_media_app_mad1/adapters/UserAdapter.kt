@@ -32,8 +32,10 @@ private val listener: UserListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(user: UserModel, listener: UserListener) {
+            binding.mediaName.text = user.socialmedia
             binding.accountUsername.text = user.username
             binding.accountCaption.text = user.caption
+            binding.accountFollowing.text = user.followers.toString()
             Picasso.get().load(user.profilepic).into(binding.userImage)
             binding.root.setOnClickListener{listener.onUserClick(user)}
         }

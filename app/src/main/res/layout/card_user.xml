@@ -12,12 +12,19 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <TextView
+            android:id="@+id/mediaName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:textSize="40sp"
+            tools:text="The app you want to track" />
 
         <TextView
             android:id="@+id/accountUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_below="@id/mediaName"
             android:textSize="30sp"
             tools:text="Your Username" />
 
@@ -26,7 +33,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/accountUsername"
+            android:textSize="20sp"
             tools:text="Change your caption!" />
+
+        <TextView
+            android:id="@+id/accountFollowing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_below="@id/accountCaption"
+            tools:text="Update your following count" />
 
         <ImageView
             android:id="@+id/userImage"
