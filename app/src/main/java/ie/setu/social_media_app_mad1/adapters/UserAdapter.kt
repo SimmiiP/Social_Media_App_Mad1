@@ -3,6 +3,7 @@ package ie.setu.social_media_app_mad1.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ie.setu.social_media_app_mad1.databinding.CardUserBinding
 import ie.setu.social_media_app_mad1.models.UserModel
 
@@ -33,6 +34,7 @@ private val listener: UserListener) :
         fun bind(user: UserModel, listener: UserListener) {
             binding.accountUsername.text = user.username
             binding.accountCaption.text = user.caption
+            Picasso.get().load(user.profilepic).into(binding.userImage)
             binding.root.setOnClickListener{listener.onUserClick(user)}
         }
     }

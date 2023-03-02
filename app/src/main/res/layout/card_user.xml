@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="8dp"
     android:elevation="24dp">
 
@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
+
 
         <TextView
             android:id="@+id/accountUsername"
@@ -26,6 +27,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/accountUsername"
             tools:text="Change your caption!" />
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Your Profile Pic"/>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
