@@ -1,11 +1,16 @@
 package ie.setu.social_media_app_mad1
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.NumberPicker
+import android.widget.Spinner
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
@@ -39,13 +44,13 @@ class SocialMediaActivity : AppCompatActivity() {
 
         i("Social Media Activity started...")
 
-
-
+        val socialMediaSpinner = findViewById<Spinner>(R.id.dropdownMenu)
+        socialMediaSpinner.adapter = ArrayAdapter.createFromResource(
+            this, R.array.media_array, android.R.layout.simple_spinner_item)
 
         if (intent.hasExtra("user_edit")) {
             edit = true
             user = intent.extras?.getParcelable("user_edit")!!
-            binding.mediaName.setText(user.socialmedia)
             binding.accountUsername.setText(user.username)
             binding.accountPassword.setText(user.password)
             binding.accountCaption.setText(user.caption)
@@ -58,15 +63,18 @@ class SocialMediaActivity : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener() {
-            user.socialmedia = binding.mediaName.text.toString()
+
             user.username = binding.accountUsername.text.toString()
             user.password = binding.accountPassword.text.toString()
             user.caption = binding.accountCaption.text.toString()
                 user.followers = binding.numberPicker.value.toInt()
-            if (user.username.isEmpty() && user.password.isEmpty() && user.socialmedia.isEmpty()) {
+            val socialMediaName = socialMediaSpinner.selectedItem.toString()
+            if (socialMediaName.isEmpty() || user.username.isEmpty() || user.password.isEmpty()) {
                 Snackbar.make(it, R.string.fill_all_fields, Snackbar.LENGTH_LONG)
                     .show()
             } else {
+                user.socialmedia = socialMediaName
+
                 if (edit) {
                     app.users.update(user.copy())
                 } else {

@@ -8,8 +8,20 @@
     <string name="hint_mediaName">Social Media *</string>
     <string name="menu_addUser">Add</string>
     <string name="menu_cancelUser">Cancel</string>
+    <string name="menu_deleteUser">Delete</string>
     <string name="fill_all_fields"> Please enter a username, password and the name of the app you would like to track </string>
     <string name="update_user"> Save Changes </string>
     <string name="button_addImage"> Add a Profile Picture </string>
     <string name="select_profile_image"> select your profile picture </string>
+
+    <string-array name="media_array">
+        <item>Instagram</item>
+        <item>Facebook</item>
+        <item>Snapchat</item>
+        <item>Twitter</item>
+        <item>BeReal</item>
+        <item>LinkedIn</item>
+        <item>TikTok</item>
+        <item>Youtube</item>
+    </string-array>
 </resources>
