@@ -32,6 +32,10 @@ class UserMemStore : UserStore {
         }
     }
 
+    override fun delete(user: UserModel) {
+        users.remove(user)
+    }
+
     fun logAll(){
         users.forEach{ i("${it}")}
     }
