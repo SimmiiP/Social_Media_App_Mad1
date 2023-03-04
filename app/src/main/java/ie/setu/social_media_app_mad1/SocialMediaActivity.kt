@@ -105,9 +105,15 @@ class SocialMediaActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
+            R.id.item_delete -> {
+                app.users.delete(user.copy())
+                finish()
+            }
             R.id.item_cancel -> {
                 finish()
             }
+
         }
         return super.onOptionsItemSelected(item)
     }
