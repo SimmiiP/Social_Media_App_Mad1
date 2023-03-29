@@ -28,6 +28,9 @@ class UserMemStore : UserStore {
             foundUser.caption = user.caption
             foundUser.profilepic = user.profilepic
             foundUser.followers = user.followers
+            foundUser.lat = user.lat
+            foundUser.lng = user.lng
+            foundUser.zoom = user.zoom
             logAll()
         }
     }

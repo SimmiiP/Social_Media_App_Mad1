@@ -1,13 +1,10 @@
-package ie.setu.social_media_app_mad1
+package ie.setu.social_media_app_mad1.activities
 
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.NumberPicker
 import android.widget.Spinner
@@ -15,11 +12,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import ie.setu.social_media_app_mad1.R
 import ie.setu.social_media_app_mad1.databinding.ActivitySocialmediaBinding
 import ie.setu.social_media_app_mad1.helpers.showImagePicker
 import ie.setu.social_media_app_mad1.main.MainApp
+import ie.setu.social_media_app_mad1.models.Location
 import ie.setu.social_media_app_mad1.models.UserModel
-import timber.log.Timber
 import timber.log.Timber.i
 
 
@@ -28,9 +26,11 @@ class SocialMediaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySocialmediaBinding
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
     var user = UserModel()
     lateinit var app: MainApp
+    // var location = Location(48.8584, 2.2945, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +38,10 @@ class SocialMediaActivity : AppCompatActivity() {
         binding = ActivitySocialmediaBinding.inflate(layoutInflater)
         setContentView(binding.root)
         registerImagePickerCallback()
+        registerMapCallback()
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
+
         app = application as MainApp
 
         i("Social Media Activity started...")
@@ -85,9 +87,20 @@ class SocialMediaActivity : AppCompatActivity() {
             finish()
         }
 
-
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
+        }
+
+        binding.photoLocation.setOnClickListener{
+            val location = Location(48.8584, 2.2945, 15f)
+            if(user.zoom != 0f){
+                location.lat = user.lat
+                location.lng = user.lng
+                location.zoom = user.zoom
+            }
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
         }
 
 
@@ -135,6 +148,26 @@ class SocialMediaActivity : AppCompatActivity() {
                     }
                     RESULT_CANCELED -> { }
                     else -> { }
+                }
+            }
+    }
+
+    private fun registerMapCallback(){
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            {result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if(result.data != null){
+                            i("Got Location ${result.data.toString()}")
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            i("Location == $location")
+                            user.lat = user.lat
+                            user.lng = user.lng
+                            user.zoom = user.zoom
+                        }
+                    }
+                    RESULT_CANCELED -> { } else -> { }
                 }
             }
     }
