@@ -1,4 +1,4 @@
-package ie.setu.social_media_app_mad1
+package ie.setu.social_media_app_mad1.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import ie.setu.social_media_app_mad1.R
 import ie.setu.social_media_app_mad1.adapters.UserAdapter
 import ie.setu.social_media_app_mad1.adapters.UserListener
 import ie.setu.social_media_app_mad1.databinding.ActivitySocialMediaListBinding
@@ -16,7 +17,7 @@ import ie.setu.social_media_app_mad1.main.MainApp
 import ie.setu.social_media_app_mad1.models.UserModel
 
 
-class SocialMediaListActivity : AppCompatActivity(), UserListener {
+class SocialMediaListActivity : AppCompatActivity(), UserListener{
 
     lateinit var app: MainApp
     private lateinit var binding: ActivitySocialMediaListBinding
@@ -87,10 +88,10 @@ class SocialMediaListActivity : AppCompatActivity(), UserListener {
     }
 
     private fun loadUsers() {
-        showLandmarks(app.users.findAll())
+        showUsers(app.users.findAll())
     }
 
-    fun showLandmarks (users: List<UserModel>) {
+    fun showUsers (users: List<UserModel>) {
         binding.recyclerView.adapter = UserAdapter(users, this)
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
