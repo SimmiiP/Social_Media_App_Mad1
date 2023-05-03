@@ -15,6 +15,8 @@
     <string name="button_addImage"> Add a Profile Picture </string>
     <string name="select_profile_image"> select your profile picture </string>
     <string name="button_photoLocation"> Photo Location</string>
+    <string name="button_start">Start</string>
+    <string name="splash_screen_heading">The Social Media Tracker App</string>
 
     <string-array name="media_array">
         <item>Instagram</item>
