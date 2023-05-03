@@ -1,11 +1,9 @@
-package ie.setu.social_media_app_mad1.activities
+package ie.setu.social_media_app_mad1.views.socialMediaList
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,26 +15,25 @@ import ie.setu.social_media_app_mad1.main.MainApp
 import ie.setu.social_media_app_mad1.models.UserModel
 
 
-class SocialMediaListActivity : AppCompatActivity(), UserListener{
+class SocialMediaListView : AppCompatActivity(), UserListener{
 
+    private var position: Int = 0
     lateinit var app: MainApp
     private lateinit var binding: ActivitySocialMediaListBinding
-    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
+    lateinit var presenter: SocialMediaListPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySocialMediaListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
-
+        presenter = SocialMediaListPresenter(this)
         app = application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = UserAdapter(app.users.findAll(),this)
-
-        registerRefreshCallback()
+        loadUsers()
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -45,14 +42,17 @@ class SocialMediaListActivity : AppCompatActivity(), UserListener{
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_add -> {
-                val launcherIntent = Intent(this, SocialMediaActivity::class.java)
-                getResult.launch(launcherIntent)
-                refreshIntentLauncher.launch(launcherIntent)
-            }
+            R.id.item_add -> { presenter.doAddUser() }
+            R.id.item_map -> { presenter.doShowUsersMap() }
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private val mapIntentLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { }
+
 
     private val getResult =
         registerForActivityResult(
@@ -63,37 +63,24 @@ class SocialMediaListActivity : AppCompatActivity(), UserListener{
                 notifyItemRangeChanged(0,app.users.findAll().size)
             }
         }
-    override fun onUserClick(user: UserModel) {
-        val launcherIntent = Intent(this, SocialMediaActivity::class.java)
-        launcherIntent.putExtra("user_edit", user)
-        getClickResult.launch(launcherIntent)
-        refreshIntentLauncher.launch(launcherIntent)
-
-    }
-
-    private val getClickResult =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.users.findAll().size)
-            }
-        }
-
-    private fun registerRefreshCallback() {
-        refreshIntentLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { loadUsers() }
+    override fun onUserClick(user: UserModel, position: Int) {
+        this.position = position
+        presenter.doEditUser(user, this.position)
     }
 
     private fun loadUsers() {
-        showUsers(app.users.findAll())
+        binding.recyclerView.adapter = UserAdapter(presenter.getUsers(),this)
+        onRefresh()
     }
 
-    fun showUsers (users: List<UserModel>) {
-        binding.recyclerView.adapter = UserAdapter(users, this)
-        binding.recyclerView.adapter?.notifyDataSetChanged()
+    fun onRefresh() {
+        binding.recyclerView.adapter?.
+                notifyItemRangeChanged(0,presenter.getUsers().size)
+    }
+
+    fun onDelete(position: Int){
+        binding.recyclerView.adapter?.
+        notifyItemRangeChanged(0,presenter.getUsers().size)
     }
 
 }
