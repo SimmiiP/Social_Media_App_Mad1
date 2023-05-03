@@ -1,6 +1,7 @@
 package ie.setu.social_media_app_mad1.models
 
-import timber.log.Timber.i
+import timber.log.Timber.Forest.i
+
 
 var lastId = 0L
 internal fun getId(): Long {
@@ -17,6 +18,11 @@ class UserMemStore : UserStore {
 
     override fun create(user: UserModel) {
         users.add(user)
+    }
+
+    override fun findById(id:Long) : UserModel? {
+        val foundUser: UserModel? = users.find { it.id == id }
+        return foundUser
     }
 
     override fun update(user: UserModel){

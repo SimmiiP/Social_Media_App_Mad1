@@ -8,7 +8,7 @@ import ie.setu.social_media_app_mad1.databinding.CardUserBinding
 import ie.setu.social_media_app_mad1.models.UserModel
 
 interface UserListener {
-    fun onUserClick(user: UserModel)
+    fun onUserClick(user: UserModel, position : Int)
 }
 class UserAdapter constructor(private var users: List<UserModel>,
 private val listener: UserListener) :
@@ -36,8 +36,8 @@ private val listener: UserListener) :
             binding.accountUsername.text = user.username
             binding.accountCaption.text = user.caption
             binding.accountFollowing.text = user.followers.toString()
-            Picasso.get().load(user.profilepic).into(binding.userImage)
-            binding.root.setOnClickListener{listener.onUserClick(user)}
+            Picasso.get().load(user.profilepic).resize(400,400).into(binding.userImage)
+            binding.root.setOnClickListener{listener.onUserClick(user, adapterPosition)}
         }
     }
 

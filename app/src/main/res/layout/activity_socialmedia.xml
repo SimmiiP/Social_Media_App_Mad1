@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SocialMediaActivity">
+    tools:context=".views.socialMedia.SocialMediaView">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,6 +28,8 @@
                 android:layout_height="wrap_content"
                 app:titleTextColor="@color/colorPrimary" />
         </com.google.android.material.appbar.AppBarLayout>
+
+
 
         <ScrollView
             android:layout_width="match_parent"
