@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.NumberPicker
 import android.widget.Spinner
+import androidx.appcompat.widget.AppCompatToggleButton
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import ie.setu.social_media_app_mad1.R
@@ -29,7 +30,6 @@ class SocialMediaView : AppCompatActivity() {
 
         binding = ActivitySocialmediaBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
 
@@ -42,14 +42,7 @@ class SocialMediaView : AppCompatActivity() {
         socialMediaSpinner.adapter = ArrayAdapter.createFromResource(
             this, R.array.media_array, android.R.layout.simple_spinner_item)
 
-
-        binding = ActivitySocialmediaBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        binding.toolbarAdd.title = title
-        setSupportActionBar(binding.toolbarAdd)
-
         presenter = SocialMediaPresenter(this)
-
 
         binding.btnAdd.setOnClickListener() {
 
@@ -121,6 +114,4 @@ class SocialMediaView : AppCompatActivity() {
             .into(binding.userImage)
         binding.chooseImage.setText(R.string.select_profile_image)
     }
-
-
 }
