@@ -17,6 +17,7 @@
     <string name="button_photoLocation"> Photo Location</string>
     <string name="button_start">Start</string>
     <string name="splash_screen_heading">The Social Media Tracker App</string>
+    <string name="dark_mode_switch"> Dark Mode</string>
 
     <string-array name="media_array">
         <item>Instagram</item>
